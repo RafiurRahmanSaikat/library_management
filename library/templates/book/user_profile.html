@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-2xl font-bold mb-4">{{ user_account.user.first_name }} {{ user_account.user.last_name }}</h1>
+  <p class="text-gray-800 font-bold mb-4">Current Balance: BDT {{ user_account.balance }}</p>
+  <a class="bg-green-500 text-white font-bold py-2 px-4 rounded" href="  {% url 'update_profile' %} ">Edit Profile</a>
+  <a class="bg-red-500 text-white font-bold py-2 px-4 rounded" href=" {% url 'passwordChange' %} ">Change Password</a>
+  <h2 class="text-lg font-bold mb-4 text-center">Borrowing History</h2>
+  <table class="w-full border-collapse">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="py-2 px-4 border">ID</th>
+        <th class="py-2 px-4 border">Title</th>
+        <th class="py-2 px-4 border">Price</th>
+        <th class="py-2 px-4 border">Balance Remaining</th>
+        <th class="py-2 px-4 border">Borrowed At</th>
+        <th class="py-2 px-4 border">Returned At</th>
+        <th class="py-2 px-4 border">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for borrowing in borrowings %}
+        <tr>
+          <td class="py-2 px-4 border">{{ borrowing.id }}</td>
+          <td class="py-2 px-4 border">{{ borrowing.book.title }}</td>
+          <td class="py-2 px-4 border">BDT {{ borrowing.book.borrowing_price }}</td>
+          <td class="py-2 px-4 border">BDT {{ borrowing.balance_after_borrowing }}</td>
+          <td class="py-2 px-4 border">{{ borrowing.borrowed_at }}</td>
+          <td class="py-2 px-4 border">{{ borrowing.returned_at|default_if_none:'Did Not Return' }}</td>
+          <td class="py-2 px-4 border">
+            {% if not borrowing.returned_at %}
+              <form action="{% url 'return_book' borrowing.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Return</button>
+              </form>
+            {% else %}
+              <button class="bg-green-500 text-white font-bold py-2 px-4 rounded" disabled>Returned</button>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
