@@ -47,7 +47,7 @@ class BookListView(ListView):
         return context
 
 
-class AddCategoryView(CreateView):
+class AddCategoryView(LoginRequiredMixin, CreateView):
     model = Category
     form_class = CategoryForm
     template_name = "book/create.html"
@@ -64,7 +64,7 @@ class AddCategoryView(CreateView):
         return super().form_valid(form)
 
 
-class AddBookView(CreateView):
+class AddBookView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = BookForm
     template_name = "book/create.html"
