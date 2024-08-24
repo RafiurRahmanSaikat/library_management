@@ -38,11 +38,13 @@ class UserRegistrationView(FormView):
 
 class UserLoginView(LoginView):
     template_name = "accounts/user_registration.html"
-    form_class = UserLoginForm  # Specify the form class
+    form_class = UserLoginForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "login"
+        context["user"] = "RRSaikat"
+        context["userPass"] = "Password confirmation"
         return context
 
     def get_success_url(self):
@@ -56,7 +58,7 @@ class UserLogoutView(LogoutView):
         return reverse_lazy("home")
 
 
-class UserProfileUpdateView(View):
+class UserProfileUpdateView(LoginRequiredMixin, View):
     template_name = "accounts/user_registration.html"
 
     def get(self, request):
