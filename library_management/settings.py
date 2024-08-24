@@ -6,17 +6,11 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+SECRET_KEY = env("SECRET_KEY")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-_wp@op7u6ca2=x+4z@hbyawi+yii(u8imx6efe@rd5&sn2*)ip"
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
@@ -100,8 +94,7 @@ WSGI_APPLICATION = "library_management.wsgi.application"
 # Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
     "default": dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default="postgresql://library_db_t8ag_user:Pb7crnTbnG8sfKJuNDfTWIts1ULdlbw0@dpg-cr4o7708fa8c73a4vi4g-a.oregon-postgres.render.com/library_db_t8ag",
+        default=env("LIBRARY_DATABASE"),
     )
 }
 
