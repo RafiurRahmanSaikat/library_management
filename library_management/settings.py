@@ -80,12 +80,12 @@ WSGI_APPLICATION = "library_management.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # DATABASES = {
 #     "default": {
@@ -98,12 +98,12 @@ DATABASES = {
 #     }
 # }
 # Replace the SQLite DATABASES configuration with PostgreSQL:
-# DATABASES = {
-#     "default": dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default="postgresql://bank_zb0i_user:Z24PubDSPnv85ubUl2q8t3hoaMCZC9nI@dpg-cr271sjqf0us739ns2hg-a.oregon-postgres.render.com/bank_zb0i",
-#     )
-# }
+DATABASES = {
+    "default": dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default="postgresql://library_db_t8ag_user:Pb7crnTbnG8sfKJuNDfTWIts1ULdlbw0@dpg-cr4o7708fa8c73a4vi4g-a.oregon-postgres.render.com/library_db_t8ag",
+    )
+}
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
